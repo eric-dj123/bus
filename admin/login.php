@@ -12,10 +12,10 @@ if (isset($_POST['LoginBTN'])) {
     $error = "Invalid user credintials , Please try again later!!";
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $select = mysqli_query($connect, "SELECT * FROM users WHERE email='$email' AND status='0' AND role='admin' or phonenumber='$email'") or die(mysqli_error($con));
-    $selectUser = mysqli_query($connect,"SELECT * FROM users WHERE email='$email' AND status='0' and role='driver' or phonenumber='$email'");
-    $selectUser1 = mysqli_query($connect,"SELECT * FROM users WHERE email='$email' AND status='1' and role='admin' or phonenumber='$email'");
-    $selectUser2 = mysqli_query($connect,"SELECT * FROM users WHERE email='$email' AND status='1' and role='driver' or phonenumber='$email'");
+    $select = mysqli_query($connect, "SELECT * FROM users WHERE email='$email'or phonenumber='$email' AND status='0' AND role='admin' ") or die(mysqli_error($con));
+    $selectUser = mysqli_query($connect,"SELECT * FROM users WHERE email='$email' or phonenumber='$email' AND status='0' and role='driver'");
+    $selectUser1 = mysqli_query($connect,"SELECT * FROM users WHERE email='$email' or phonenumber='$email' AND status='1' and role='admin'");
+    $selectUser2 = mysqli_query($connect,"SELECT * FROM users WHERE email='$email' or phonenumber='$email' AND status='1' and role='driver'");
         if (mysqli_num_rows($select) ==1) {
             $row = mysqli_fetch_array($select);
             $db_password = $row['password'];
