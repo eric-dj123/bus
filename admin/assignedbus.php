@@ -211,7 +211,7 @@ if($row['assignstatus']=='YES'){
                                                 <td><?php echo $row['lastname'];?></td>
 
                                                 <td><?php echo $row['phonenumber'];?></td>
-                                               
+
                                                 <td><?php echo $row['platenumber'];?></td>
                                                 <td><?php echo $row['date_assigned'];?></td>
 

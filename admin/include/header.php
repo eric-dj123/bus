@@ -24,10 +24,10 @@ if (!isset($_SESSION['email']) or empty($_SESSION['email'])) {
 
                             <a href="index.html" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="assets/images/logo-light.svg" alt="" height="22">
+                                    <img src="assets/images/logo.jpg" alt="" height="22">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="assets/images/logo-light.png" alt="" height="19">
+                                    <img src="assets/images/logo.jpg" alt="" height="19">
                                 </span>
                             </a>
                         </div>
@@ -166,7 +166,7 @@ if (!isset($_SESSION['email']) or empty($_SESSION['email'])) {
                                 <i class="bx bx-bell bx-tada"></i>
                                 <?php
                                                      include 'include/connect.php';
-                                                    $sql = "SELECT * FROM problemdriver_tbl WHERE status='0'";
+                                                    $sql = "SELECT * FROM `problemdriver_tbl` WHERE status='0' ORDER BY `problemdriver_tbl`.`date_send` DESC LIMIT 10 ";
                                                     $result = mysqli_query($connect, $sql);
                                                     $total = mysqli_num_rows($result);
                                                     ?>
@@ -185,31 +185,16 @@ if (!isset($_SESSION['email']) or empty($_SESSION['email'])) {
                                     </div>
                                 </div>
                                 <div data-simplebar style="max-height: 230px;">
-                                    <a href="javascript: void(0);" class="text-reset notification-item">
-                                        <div class="d-flex">
-                                            <div class="avatar-xs me-3">
-                                                <span class="avatar-title bg-primary rounded-circle font-size-16">
-                                                    <i class="bx bx-cart"></i>
-                                                </span>
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <h6 class="mb-1" key="t-your-order">Your order is placed</h6>
-                                                <div class="font-size-12 text-muted">
-                                                    <p class="mb-1" key="t-grammer">If several languages coalesce the grammar</p>
-                                                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span key="t-min-ago">3 min ago</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
 
-                                    <a href="javascript: void(0);" class="text-reset notification-item">
+
+                                    <a  class="text-reset notification-item">
                                         <div class="d-flex">
                                             <img src="assets/images/users/avatar-4.jpg"
                                                 class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                             <div class="flex-grow-1">
                                             <?php
 
-$select = mysqli_query($con,"SELECT users.firstname,users.lastname,users.phonenumber,problemdriver_tbl.message,problemdriver_tbl.date_send FROM problemdriver_tbl JOIN users ON users.user_id=problemdriver_tbl.user_id");
+$select = mysqli_query($con,"SELECT users.firstname,users.lastname,users.phonenumber,problemdriver_tbl.message,problemdriver_tbl.date_send FROM problemdriver_tbl JOIN users ON users.user_id=problemdriver_tbl.user_id WHERE problemdriver_tbl.status='0' ORDER BY `problemdriver_tbl`.`date_send` DESC LIMIT 2");
 $i=0;
 
 while ($row = mysqli_fetch_array($select)) {
@@ -222,7 +207,7 @@ while ($row = mysqli_fetch_array($select)) {
                                                 <h6 class="mb-1"><?php echo $row['firstname'];?> <?php echo $row['lastname'];?></h6>
                                                 <div class="font-size-12 text-muted">
                                                     <p class="mb-1" key="t-occidental"><?php echo $row['message'];?></p>
-                                                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span key="t-hours-ago">1 hours ago</span></p>
+                                                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span key="t-hours-ago"><?php echo $row['date_send'];?></span></p>
                                                 </div>
                                                 <?php
                                                     }
@@ -232,7 +217,7 @@ while ($row = mysqli_fetch_array($select)) {
                                     </a>
                                 </div>
                                 <div class="p-2 border-top d-grid">
-                                    <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
+                                    <a class="btn btn-sm btn-link font-size-14 text-center" href="messagesentdriver.php">
                                         <i class="mdi mdi-arrow-right-circle me-1"></i> <span key="t-view-more">View More..</span>
                                     </a>
                                 </div>

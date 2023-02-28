@@ -70,7 +70,7 @@ if (isset($_POST['savebtn'])) {
 
     </head>
 
-    <body data-sidebar="" data-layout-mode="light">
+    <body class="mx-lt-5 bg-warning"  data-layout-mode="light">
 
 
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->

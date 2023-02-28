@@ -212,13 +212,12 @@ if (isset($_POST['savebtn'])) {
                             </div>
                             <div class="modal-body">
                             <form action="action/assigbusdriver.php" method="POST" class="custom-validation">
-                            <div class="mb-12">
-
-                                                        <label for="formmessage">Message Sent :</label>
-                                                        <textarea id="formmessage" class="form-control" name="message"  placeholder="Enter Your Message" readonly>
-                                                        <?php echo $row['message'];?>
-                                                        </textarea>
-                                                    </div>
+                            <div class="mb-3">
+		<label for="example-textarea" class="form-label">Reason</label>
+		<textarea class="form-control" id="example-textarea" name="comment" readonly placeholder="Please Write Reason to Return this Mail"rows="5">
+        l<?= $row['message']; ?>
+    </textarea>
+	</div>
 
 
 

@@ -184,7 +184,7 @@ if (isset($_POST['savebtn'])) {
 
                                             <?php
 
-                                                $select = mysqli_query($con,"SELECT users.firstname,users.lastname,users.phonenumber,problemdriver_tbl.message,problemdriver_tbl.date_send FROM problemdriver_tbl JOIN users ON users.user_id=problemdriver_tbl.user_id");
+                                                $select = mysqli_query($con,"SELECT users.firstname,users.lastname,users.phonenumber,problemdriver_tbl.message,problemdriver_tbl.pro_id,problemdriver_tbl.date_send FROM problemdriver_tbl JOIN users ON users.user_id=problemdriver_tbl.user_id");
                                                 $i=0;
 
                                                 while ($row = mysqli_fetch_array($select)) {
@@ -217,14 +217,14 @@ if (isset($_POST['savebtn'])) {
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                            <form action="action/assigbusdriver.php" method="POST" class="custom-validation">
-                            <div class="mb-12">
-
-                                                        <label for="formmessage">Message Sent :</label>
-                                                        <textarea id="formmessage" class="form-control" name="message"  placeholder="Enter Your Message" readonly>
-                                                        <?php echo $row['message'];?>
-                                                        </textarea>
-                                                    </div>
+                            <form action="action/updatepro.php" method="POST" class="custom-validation">
+                            <div class="mb-3">
+                            <input type="hidden" value="<?= $row['pro_id']; ?>" name="pro_id">
+		<label for="example-textarea" class="form-label">Reason</label>
+		<textarea class="form-control" id="example-textarea" name="comment" readonly placeholder="Please Write Reason to Return this Mail"rows="5">
+        l<?= $row['message']; ?>
+    </textarea>
+	</div>
 
 
 
@@ -232,8 +232,11 @@ if (isset($_POST['savebtn'])) {
 
                                 </div>
                                 <div class="modal-footer">
+                                <button type="submit" name="savebtn" class="btn btn-warning waves-effect waves-light">
+                                        Approve
+                                    </button>
 
-                                                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                                                     </div>
 
                                 </form>

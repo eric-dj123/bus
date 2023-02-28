@@ -1,64 +1,56 @@
 <?php
-session_start();
+
 include('../layout/homes.php')
 
 ?>
 <?php
-include('../connect.php');
-$msg="";
 $error="";
-if (isset($_POST['LoginBTN'])) {
+$msg="";
+session_start();
 
-    $error = "Invalid user credintials , Please try again later!!";
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $select = mysqli_query($connect, "SELECT * FROM users WHERE email='$email'or phonenumber='$email' AND status='0' AND role='admin' ") or die(mysqli_error($con));
-    $selectUser = mysqli_query($connect,"SELECT * FROM users WHERE email='$email' or phonenumber='$email' AND status='0' and role='driver'");
-    $selectUser1 = mysqli_query($connect,"SELECT * FROM users WHERE email='$email' or phonenumber='$email' AND status='1' and role='admin'");
-    $selectUser2 = mysqli_query($connect,"SELECT * FROM users WHERE email='$email' or phonenumber='$email' AND status='1' and role='driver'");
-        if (mysqli_num_rows($select) ==1) {
-            $row = mysqli_fetch_array($select);
-            $db_password = $row['password'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $email = $_POST['email'];
+  $password = $_POST['password'];
 
-        if (password_verify(mysqli_real_escape_string($con, trim($_POST['password'])), $db_password)) {
-            $_SESSION['user_id'] = $row['user_id'];
-            $_SESSION['firstname'] = $row['firstname'];
-            $_SESSION['lastname'] = $row['lastname'];
-            $_SESSION['email'] = $row['email'];
+  // Connect to the database
+  $conn = mysqli_connect('localhost', 'root', '', 'royal_db');
 
-            header("location: index.php");
-        }else {
-            $error = "Password does not match with any of account , Please try again later!!";
-        }
+  // Check if the username exists in the database
+  $query = "SELECT * FROM users WHERE email='$email' OR phonenumber='$email' and status='0'";
+  $result = mysqli_query($conn, $query);
 
-        }else if (mysqli_num_rows($selectUser) ==1) {
-            $row1 = mysqli_fetch_array($selectUser);
-            $db_password1 = $row1['password'];
+  if (mysqli_num_rows($result) == 1) {
+    $user = mysqli_fetch_assoc($result);
 
-            if (password_verify(mysqli_real_escape_string($con, trim($_POST['password'])), $db_password1)) {
-                $_SESSION['user_id'] = $row1['user_id'];
+    // Check if the password is correct
+    if (password_verify($password, $user['password'])) {
+      // Set session variables
+      $_SESSION['user_id'] = $user['user_id'];
+      $_SESSION['role'] = $user['role'];
+      $_SESSION['email'] = $user['email'];
+      $_SESSION['firstname'] = $user['firstname'];
+      $_SESSION['lastname'] = $user['lastname'];
 
-                $_SESSION['firstname'] = $row1['firstname'];
-                $_SESSION['lastname'] = $row1['lastname'];
-                $_SESSION['email'] = $row1['email'];
-                $_SESSION['phone'] = $row1['phone'];
 
-                header("location:driver/index.php");
-            }else {
-                $error = "Password does not match with any of account , Please try again later!!";
-            }
-        }
-        elseif(mysqli_num_rows($selectUser1) ==1){
-            $error = "Your Account Is blocked Please Call Administrator";
-        }
-        elseif(mysqli_num_rows($selectUser2) ==1){
-            $error = "Your Account Is blocked Please Call Administrator";
-        }
-        else {
-            $error = "Invalid user credintials , Please try again later!!";
-        }
+      // Redirect the user to the appropriate page
+      if ($user['role'] == 'admin') {
+        header("location: index.php");
+
+        exit();
+      } else {
+        header("location:driver/index.php");
+        exit();
+      }
+    } else {
+      $error = 'Invalid password';
+    }
+  } else {
+    $error = 'Invalid username';
+  }
 }
 ?>
+
+
 
         <div class="account-pages my-5 pt-sm-5">
             <div class="container">
@@ -79,6 +71,7 @@ if (isset($_POST['LoginBTN'])) {
                                                 <strong>Oh snap!</strong> <?php echo htmlentities($error); ?>
                                             </div>
                                         <?php } ?>
+
                                     <div class="col-12">
 
                                         <div class="text-secondary p-4">

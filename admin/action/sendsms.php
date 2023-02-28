@@ -12,7 +12,7 @@ include('../include/connect.php');
    $dipaturetime = $_POST['dipaturetime'];
    $comment = $_POST['comment'];
    $insert=mysqli_query($con,"INSERT INTO `notify_tbl`(`user_id`, `bus_id`,`destination`,`dipaturetime`,`comment`,`date_notified`) VALUES
-   ('$user_id','$bus_id','$destination','$dipaturetime','$comment'.'$date_notified')");
+   ('$user_id','$bus_id','$destination','$dipaturetime','$comment','$date_notified')");
 
          if($insert)
          {

@@ -1,54 +1,4 @@
-<?php
-session_start();
-$error = "";
-$msg = "";
-include('../includes/config.php');
-error_reporting(0);
-if (strlen($_SESSION['email']) == 0) {
-    header('location:../admin/login.php');
-}
-   ?>
-<?php
-include 'include/connect.php';
-$error = "";
-$msg = "";
 
-// send_mail("cool","register","ndagijimanaenock22@gmail.com");
-if (isset($_POST['savebtn'])) {
-    $firstname=mysqli_real_escape_string($con,trim($_POST['firstname']));
-    $lastname=mysqli_real_escape_string($con,trim($_POST['lastname']));
-    $phonenumber=mysqli_real_escape_string($con,trim($_POST['phonenumber']));
-    $email =mysqli_real_escape_string($con,trim($_POST['email']));
-    $role =mysqli_real_escape_string($con,trim($_POST['role']));
-    $password =$_POST['password'];
-    $cpass =$_POST['password'];
-    // generate verify key
-
-
-
-    $select_chech = mysqli_query($con, "SELECT * FROM users WHERE email='".trim($_POST['email'])."' OR phonenumber='".trim($_POST['phonenumber'])."'");
-    if (mysqli_num_rows($select_chech) > 0) {
-        $error="email or Phone Already used!";
-    }elseif ($password != $cpass) {
-        $error ="Password are not Match";
-    }
-    elseif (mysqli_num_rows($select_chech)==0) {
-        $hashpassword=password_hash($password, PASSWORD_BCRYPT);
-
-
-        $insert=mysqli_query($con,"INSERT INTO `users`(`firstname`, `lastname`, `phonenumber`, `email`, `password`,`role`) VALUES
-        ('$firstname','$lastname','$phonenumber','$email','$hashpassword','$role')");
-        if ($insert) {
-
-            $msg ="New User is Added success";
-        }else {
-            $error="There is Something Went Wrong";
-        }
-    }else {
-        $error="email or Phone  Already used!";
-    }
-}
-?>
 <!doctype html>
 <html lang="en">
 
@@ -235,7 +185,7 @@ if (isset($_POST['savebtn'])) {
                                                 <th>Email</th>
                                                 <th>PhoneNumber</th>
                                                 <th>Role</th>
-                                                <th>Create ON</th>
+
                                                 <th>Status</th>
                                                 <th>Restore</th>
 
@@ -266,7 +216,7 @@ if($row['status']==0){
                                                 <td><?php echo $row['email'];?></td>
                                                 <td><?php echo $row['phonenumber'];?></td>
                                                 <td><?php echo $row['role'];?></td>
-                                                <td><?php echo $row['created_on'];?></td>
+
                                                 <td><?php echo $status ?></td>
                                                 <td>
                                                             <div class="d-flex gap-3">

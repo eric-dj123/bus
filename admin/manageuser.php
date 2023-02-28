@@ -70,7 +70,7 @@ if (isset($_POST['savebtn'])) {
 
     </head>
 
-    <body data-sidebar="" data-layout-mode="light">
+    <body data-sidebar="navbar navbar-expand navbar-dark bg-dark static-top" data-layout-mode="light">
 
 
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
@@ -188,8 +188,8 @@ if (isset($_POST['savebtn'])) {
                                                                 <label>Role</label>
                                                                 <select class="form-select" id="validationCustom03"  name="role"required>
                                                                     <option selected disabled value="">Choose...</option>
-                                                                    <option>Admin</option>
-                                                                    <option>Driver</option>
+                                                                    <option value="admin">Admin</option>
+                                                                    <option value="driver">Driver</option>
                                                                 </select>
                                                             </div>
                                                             <div class="mb-2">
@@ -225,7 +225,7 @@ if (isset($_POST['savebtn'])) {
                                             <tr><th>#</th>
                                                 <th>FirstName</th>
                                                 <th>LastName</th>
-                                        
+
                                                 <th>PhoneNumber</th>
                                                 <th>Role</th>
                                                 <th>Create ON</th>
