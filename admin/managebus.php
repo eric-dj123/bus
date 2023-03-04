@@ -134,7 +134,7 @@ if (isset($_POST['savebtn'])) {
                                         <h4 class="card-title">Manage Bus</h4>
                                         <div class="text-sm-end">
                                             <button type="button" class="btn btn-warning btn-rounded waves-effect waves-light mb-2 me-2"
-                                            data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"><i class="mdi mdi-plus me-1"></i> Add New User</button>
+                                            data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"><i class="mdi mdi-plus me-1"></i> Add New Bus</button>
                                         </div>
                                         <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
